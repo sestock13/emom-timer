@@ -6,7 +6,7 @@
 <style>
 :root{color-scheme:dark;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#0b1220;color:#f5f8fc}*{box-sizing:border-box}body{margin:0;min-height:100dvh;background:radial-gradient(ellipse at 50% 0%,#182b42 0%,#0b1220 60%);padding:24px 16px 34px}.app{max-width:480px;margin:0 auto}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:25px}.brand{font-size:17px;font-weight:800;letter-spacing:.15em}.chip{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#9bdfd3;border:1px solid #315e61;padding:7px 10px;border-radius:30px}.eyebrow{text-align:center;color:#99acc4;letter-spacing:.18em;text-transform:uppercase;font-size:12px;font-weight:750}.round{text-align:center;font-size:26px;font-weight:800;margin:10px 0 8px}.round b{color:#7de6ce}.timer-wrap{width:min(84vw,345px);height:min(84vw,345px);margin:18px auto 12px;position:relative;display:grid;place-items:center}.timer-wrap svg{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg)}.track{fill:none;stroke:#27374e;stroke-width:11}.progress{fill:none;stroke:#60dfc2;stroke-width:11;stroke-linecap:round;transition:stroke .2s;stroke-dasharray:100;stroke-dashoffset:0}.timer-inner{text-align:center;position:relative}.time{font-variant-numeric:tabular-nums;letter-spacing:-.065em;font-weight:800;font-size:clamp(64px,17vw,88px);line-height:1}.subtime{font-size:12px;text-transform:uppercase;letter-spacing:.13em;color:#97a9be;margin-top:12px;font-weight:700}.cue{text-align:center;color:#79dfc7;font-size:17px;font-weight:760;min-height:26px;margin:5px 0 12px}.controls{display:grid;grid-template-columns:1fr 2fr;gap:10px;margin:16px 0 22px}.btn{border:0;border-radius:15px;padding:17px 12px;font:inherit;font-weight:800;font-size:16px;cursor:pointer;touch-action:manipulation}.btn:focus-visible,input:focus-visible{outline:3px solid #a7ffe7;outline-offset:2px}.primary{background:#72e0c6;color:#092326}.secondary{background:#25354b;color:#e9f1fa}.panel{background:#152235;border:1px solid #2c3e53;border-radius:22px;padding:20px;margin-top:13px}.panel h2{font-size:15px;letter-spacing:.03em;margin:0 0 17px}.fields{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field label{display:block;font-size:12px;font-weight:750;color:#acbdd0;margin-bottom:9px}.field input{display:block;width:100%;background:#0d192a;border:1px solid #3b5066;border-radius:11px;padding:13px 10px;color:#fff;font-size:21px;font-weight:750;min-width:0}.units{font-size:11px;color:#8096ad;margin-top:5px}.switchrow{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-top:15px;padding-top:15px;border-top:1px solid #2b3c50;font-size:13px;font-weight:650}.switchrow span{color:#aebdd0}.switchrow input{accent-color:#65dbc0;width:20px;height:20px;flex-shrink:0}.foot{color:#8193aa;text-align:center;font-size:12px;line-height:1.5;margin-top:18px}.alert{color:#ffcc83!important}.done{color:#90e6b1!important}.locked input[type=number]{opacity:.6}.hide{display:none!important}.voice-tools{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:15px}.voice-tools button{flex:0 0 auto;background:#29475c;color:#fff;border:1px solid #527086;border-radius:12px;padding:12px 15px;font:inherit;font-size:13px;font-weight:800}.voice-feedback{font-size:12px;line-height:1.4;color:#abc1d7}.voice-feedback.bad{color:#ffcc83}.audio-status{margin-top:10px;padding:10px 12px;border:1px solid #385268;background:#102033;border-radius:10px;font-size:12px;color:#b9cddd;line-height:1.45}.audio-status strong{color:#86e5d1}.audio-status.bad{border-color:#77533a;color:#ffce91}
 </style></head>
-<body><main class="app"><header class="top"><div class="brand">EMOM<span style="color:#72e0c6">.</span></div><span class="chip">VOICE AUDIO • V4</span></header>
+<body><main class="app"><header class="top"><div class="brand">EMOM<span style="color:#72e0c6">.</span></div><span class="chip">VOICE AUDIO • V5</span></header>
 <div class="eyebrow" id="status">READY TO TRAIN</div><div class="round" id="round">ROUND <b>1</b> / 9</div>
 <div class="timer-wrap"><svg viewBox="0 0 320 320" aria-hidden="true"><circle class="track" cx="160" cy="160" r="142" pathLength="100"/><circle class="progress" id="ring" cx="160" cy="160" r="142" pathLength="100"/></svg><div class="timer-inner"><div class="time" id="clock" role="timer" aria-live="off">1:00</div><div class="subtime" id="timeLabel">REMAINING</div></div></div>
 <div class="cue" id="cue">Press Start when you're ready</div><div class="controls"><button id="reset" class="btn secondary" type="button">Reset</button><button id="start" class="btn primary" type="button">Start workout</button></div>
@@ -15,9 +15,9 @@
 <label class="switchrow">10-second warning <span>10 seconds remaining</span><input id="ten" type="checkbox" checked></label>
 <label class="switchrow">3–2–1 countdown <span>Final three seconds</span><input id="countdown" type="checkbox" checked></label>
 <label class="switchrow">Spoken audio cues <span>Speaks each warning and interval</span><input id="voice" type="checkbox" checked></label>
-<div class="voice-tools"><button id="testVoice" type="button">🔊 Test voice</button><button id="testBeep" type="button">♪ Test beep</button><div id="voiceFeedback" class="voice-feedback" role="status">Try both sound tests. Built-in voice works offline.</div></div><div id="audioStatus" class="audio-status" role="status" aria-live="polite"><strong>Audio:</strong> Not tested. Connect your speaker before tapping Start.</div>
+<div class="voice-tools"><button id="testVoice" type="button">🔊 Test voice</button><button id="testBeep" type="button">♪ Test beep</button><div id="voiceFeedback" class="voice-feedback" role="status">Try both sound tests. Built-in voice works offline.</div></div><div id="audioStatus" class="audio-status" role="status" aria-live="polite"><strong>Audio:</strong> Not tested. Music-mixing mode will be requested when audio starts.</div><div id="mixingStatus" class="audio-status" role="status">Music mixing: not yet requested.</div>
 <label class="switchrow">Vibration <span>When supported</span><input id="vibration" type="checkbox" checked></label></section>
-<div class="foot">Tap Start to begin a 10-second preparation countdown. Connect Bluetooth first, then tap Test voice and Start. Turn up media volume. Keep this page visible and your iPhone unlocked during workouts.</div></main>
+<div class="foot">Tap Start to begin a 10-second preparation countdown. Connect Bluetooth first, start music, then tap Test voice and Start. Keep Silent Mode off for ambient audio. Keep this page visible and your iPhone unlocked during workouts.</div></main>
 <script>
 (()=>{
 const $=id=>document.getElementById(id);
@@ -47,6 +47,30 @@ voicePlayer.setAttribute('playsinline','');
 const beepPlayer=new Audio();beepPlayer.preload='auto';beepPlayer.volume=.75;
 beepPlayer.setAttribute('playsinline','');
 let playId=0, wantedClip=null, retryCount=0, retryHandle=null, lastReported='';
+// Explicitly request a mixed audio session. Safari's default media playback mode
+// may claim an exclusive session and pause music from other iPhone apps.
+let mixingSupport='unknown';
+function enableMusicMixing(){
+ try{
+  if(!('audioSession' in navigator)||!navigator.audioSession){
+   mixingSupport='unsupported';
+   $('mixingStatus').textContent='Music mixing: browser does not support audio session selection. Other music may pause.';
+   return false;
+  }
+  navigator.audioSession.type='ambient';
+  const actual=navigator.audioSession.type;
+  mixingSupport=actual==='ambient'?'ambient':'unconfirmed';
+  $('mixingStatus').textContent=actual==='ambient'
+   ? 'Music mixing: ambient mode requested ✓ (iOS controls actual playback)'
+   : 'Music mixing: requested ambient, browser reports '+actual;
+  return actual==='ambient';
+ }catch(err){
+  mixingSupport='error';
+  $('mixingStatus').textContent='Music mixing: Safari refused setting ('+(err.name||'error')+').';
+  return false;
+ }
+}
+
 function audioStatus(msg,bad=false){
  if(msg===lastReported)return;lastReported=msg;
  const element=$('audioStatus');element.classList.toggle('bad',bad);
@@ -75,6 +99,7 @@ function stopMedia(){
  try{beepPlayer.pause();beepPlayer.currentTime=0}catch{}
 }
 function playMedia(element,label,token){
+ enableMusicMixing();
  try{
   const outcome=element.play();
   if(outcome&&typeof outcome.catch==='function')outcome.catch(err=>{
@@ -158,6 +183,7 @@ function tick(){if(state!=='running'&&state!=='prep')return;const now=performanc
  render();
 }
 function start(){
+ enableMusicMixing();
  if(state==='prep'||state==='running'){
   remaining=Math.max(0,endAt-performance.now());state=state==='prep'?'prep-paused':'paused';stopTicker();release();cancelVoice();$('cue').textContent='Timer paused';render();return;
  }
@@ -176,7 +202,7 @@ ids.forEach(id=>$(id).addEventListener('change',()=>{if(['minutes','seconds','ro
 $('start').addEventListener('click',start);$('reset').addEventListener('click',reset);
 $('testVoice').addEventListener('click',()=>{$('voice').checked=true;store();feedback('Starting recorded voice…',false);speak('Voice test. Halfway there. Ten seconds. Three. Two. One. Interval two.',true)});
 $('testBeep').addEventListener('click',()=>{stopMedia();feedback('Starting beep through the media player…');beep(800,.45)});
-document.addEventListener('visibilitychange',()=>{if(!document.hidden){recoverAudio();if(state==='running'||state==='prep'){wake();tick()}}});
+document.addEventListener('visibilitychange',()=>{if(!document.hidden){enableMusicMixing();recoverAudio();if(state==='running'||state==='prep'){wake();tick()}}});
  voicePlayer.addEventListener('suspend',()=>{if(wantedClip&&voicePlayer.paused)recoverAudio()});
 setup();
 })();
